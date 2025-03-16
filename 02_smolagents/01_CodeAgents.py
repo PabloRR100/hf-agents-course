@@ -10,3 +10,11 @@ However, research shows that tool-calling LLMs work more effectively with code d
 This is a core principle of smolagents, as shown in the diagram above from Executable Code Actions Elicit Better LLM Agents.
 """
 
+from smolagents import CodeAgent, DuckDuckGoSearchTool, HfApiModel
+
+agent = CodeAgent(tools=[DuckDuckGoSearchTool()], model=HfApiModel())
+
+result = agent.run("Search for the best music recommendations for a party at the Wayne's mansion.")
+
+print(result)
+
