@@ -1,9 +1,16 @@
 from datasets import load_dataset
 from trl import SFTConfig, SFTTrainer
 import torch
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 # Set device
 device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
+
+# Load model
+tokenizer = AutoTokenizer.from_pretrained("google/gemma-2-2b-it")
+model = AutoModelForCausalLM.from_pretrained("google/gemma-2-2b-it")
+
+# try infernence
 
 
 # Load dataset
@@ -43,6 +50,6 @@ def formatting_func(example):
     return text
 
 
-trainer = SFTTrainer(model=model, train_dataset=dataset, args=training_args, formatting_func=formatting_func)
+trainer = SFTTrainer(model=model, train_dataset=dataset, args=training_args)
 
 trainer.train()
